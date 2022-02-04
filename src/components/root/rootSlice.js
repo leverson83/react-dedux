@@ -6,8 +6,8 @@ const initialState = {
   },
 }
 
-export const counterSlice = createSlice({
-  name: 'tab',
+export const menuSlice = createSlice({
+  name: 'menu',
   initialState,
   reducers: {
     setTab: (state, action) => {
@@ -16,8 +16,10 @@ export const counterSlice = createSlice({
   },
 })
 
-export const { setTab } = counterSlice.actions
+export const { setTab } = menuSlice.actions
 
+// Can be inlined instead of exporting:
+// `useSelector((state: RootState) => state.counter.value)`
 export const activeTab = (state) => state.root.menu.activeTab
 
-export default counterSlice.reducer
+export default menuSlice.reducer
