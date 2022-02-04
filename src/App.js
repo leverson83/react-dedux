@@ -1,6 +1,6 @@
 import React from 'react'
 import MainMenu from './components/mainMenu/MainMenu'
-import './components/root/bootstrap5.css'
+import './css/bootstrap5.css'
 
 function App() {
   return (
