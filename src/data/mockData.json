@@ -1,0 +1,63 @@
+[
+  {
+    "id": 0,
+    "english": "So so",
+    "chinese": "Yi ban ban"
+  },
+  {
+    "id": 1,
+    "english": "Why",
+    "chinese": "Wei shen me"
+  },
+  {
+    "id": 2,
+    "english": "Great",
+    "chinese": "Li hai"
+  },
+  {
+    "id": 3,
+    "english": "Interesting",
+    "chinese": "You yisi"
+  },
+  {
+    "id": 4,
+    "english": "Task",
+    "chinese": "Ren wu"
+  },
+  {
+    "id": 5,
+    "english": "Outside",
+    "chinese": "Wai mian"
+  },
+  {
+    "id": 6,
+    "english": "Cold",
+    "chinese": "Leng"
+  },
+  {
+    "id": 7,
+    "english": "Hot",
+    "chinese": "Re"
+  },
+  {
+    "id": 8,
+    "english": "Pork",
+    "chinese": "Zhu rou"
+  },
+  {
+    "id": 9,
+    "english": "Wrong",
+    "chinese": "Cuo"
+  },
+  {
+    "id": 10,
+    "english": "Chicken",
+    "chinese": "Ji rou"
+  }
+  ,
+  {
+    "id": 11,
+    "english": "Evening",
+    "chinese": "Wan shang"
+  }
+]

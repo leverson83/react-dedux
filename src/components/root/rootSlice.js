@@ -1,8 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
+import data from '../../data/mockData.json'
 
 const initialState = {
   menu: {
-    activeTab: '/link1',
+    action: '',
+  },
+  content: {
+    activeContent: 'landing',
+  },
+  data: {
+    dataArray: [...data],
   },
 }
 
@@ -10,13 +17,24 @@ export const menuSlice = createSlice({
   name: 'menu',
   initialState,
   reducers: {
-    setTab: (state, action) => {
-      state.menu.activeTab = action.payload
+    setAction: (state, action) => {
+      state.menu.action = action.payload
     },
   },
 })
 
-export const { setTab } = menuSlice.actions
+export const contentSlice = createSlice({
+  name: 'content',
+  initialState,
+  reducers: {
+    setContent: (state, action) => {
+      state.content.activeContent = action.payload
+    },
+  },
+})
+
+export const { setAction } = menuSlice.actions
+export const { setContent } = contentSlice.actions
 
 // Can be inlined instead of exporting:
 // `useSelector((state: RootState) => state.counter.value)`
