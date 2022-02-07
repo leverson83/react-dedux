@@ -9,8 +9,12 @@ const initialState = {
     activeContent: 'landing',
   },
   data: {
-    dataArray: [...data],
+    dataArray: [],
   },
+}
+
+const loader = () => {
+  return [...data]
 }
 
 export const menuSlice = createSlice({
@@ -19,22 +23,16 @@ export const menuSlice = createSlice({
   reducers: {
     setAction: (state, action) => {
       state.menu.action = action.payload
-    },
-  },
-})
-
-export const contentSlice = createSlice({
-  name: 'content',
-  initialState,
-  reducers: {
-    setContent: (state, action) => {
-      state.content.activeContent = action.payload
+      if (action.payload === 'load') {
+        state.data.dataArray = loader()
+      } else {
+        alert(action.payload)
+      }
     },
   },
 })
 
 export const { setAction } = menuSlice.actions
-export const { setContent } = contentSlice.actions
 
 // Can be inlined instead of exporting:
 // `useSelector((state: RootState) => state.counter.value)`

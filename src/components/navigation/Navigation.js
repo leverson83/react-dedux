@@ -21,7 +21,7 @@ const Navigation = () => {
       }}
     >
       <Navbar.Brand href="#home">
-        <img src={logo} />
+        <img src={logo} alt="Application logo" />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
