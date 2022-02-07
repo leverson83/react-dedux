@@ -1,0 +1,16 @@
+.navbar {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.dropdown-menu {
+  border-radius: 0;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.dropdown-menu[data-bs-popper] {
+  top: calc(100% + 5px);
+}
