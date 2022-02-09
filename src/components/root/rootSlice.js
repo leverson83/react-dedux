@@ -1,38 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit'
-import data from '../../data/mockData.json'
-
-const initialState = {
-  menu: {
-    action: '',
-  },
-  content: {
-    activeContent: 'landing',
-  },
-  data: {
-    dataArray: [],
-  },
-}
-
-const loader = () => {
-  return [...data]
-}
+import initialState from '../../app/initialState'
 
 export const menuSlice = createSlice({
   name: 'menu',
   initialState,
   reducers: {
     setAction: (state, action) => {
+      //alert(action.payload)
       state.menu.action = action.payload
-      if (action.payload === 'load') {
-        state.data.dataArray = loader()
-      } else {
-        alert(action.payload)
-      }
+    },
+    loadRemote: (state, action) => {
+      state.data.remoteData = action.payload
+      state.data.loaded = true
+      state.data.dataArray = state.data.remoteData
+    },
+    loadData: (state, action) => {
+      //alert(action.payload)
+      state.menu.action = 'load'
+      state.data.dataArray = state.data.remoteData
+      state.data.loaded = true
+    },
+    clearData: (state, action) => {
+      //alert(action.payload)
+      state.data.dataArray = []
     },
   },
 })
 
-export const { setAction } = menuSlice.actions
+export const { setAction, loadData, clearData, loadRemote } = menuSlice.actions
 
 // Can be inlined instead of exporting:
 // `useSelector((state: RootState) => state.counter.value)`

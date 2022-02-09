@@ -5,10 +5,14 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { useDispatch } from 'react-redux'
-import { setAction } from '../root/rootSlice'
+import { clearData, loadData } from '../root/rootSlice'
 
 const Navigation = () => {
   const dispatch = useDispatch()
+
+  const handleAction = (e) => {
+    e === 'load' ? dispatch(loadData(e)) : dispatch(clearData(e))
+  }
 
   return (
     <Navbar
@@ -17,7 +21,7 @@ const Navigation = () => {
       expand="sm"
       fixed="top"
       onSelect={(e) => {
-        dispatch(setAction(e))
+        handleAction(e)
       }}
     >
       <Navbar.Brand href="#home">
