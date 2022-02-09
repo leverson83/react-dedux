@@ -9,8 +9,6 @@ import { useEffect } from 'react'
 import { loadRemote } from './components/root/rootSlice'
 import { useDispatch } from 'react-redux'
 import db from './app/base'
-import { useState } from 'react'
-import LoadBar from './components/spinner/LoadBar'
 
 function App() {
   const dispatch = useDispatch()
