@@ -1,25 +1,19 @@
 import React from 'react'
-import firebase from 'firebase/compat/app'
+import db from './base'
 
-// export function getData() {
-//   const ref = firebase.firestore().collection('words')
-//   const [data, setData] = useState([])
-//   const [loader, setLoader] = useState(true)
+const fetchWords = async () => {
+  const items = []
+  const response = db.collection('words')
+  const data = await response.get()
 
-//   const getData = () => {
-//     ref.onSnapshot((querySnapshot) => {
-//       const items = []
-//       querySnapshot.forEach((word) => {
-//         items.push(word.data())
-//       })
-//       setData(items)
-//       setLoader(false)
-//     })
-//   }
+  data.docs.forEach((word) => {
+    items.push({
+      id: word.data().id,
+      english: word.data().english,
+      chinese: word.data().chinese,
+    })
+  })
+  return items
+}
 
-//   useEffect(() => {
-//     getData()
-//   }, [])
-
-//   return data
-// }
+export default fetchWords

@@ -1,5 +1,3 @@
-import mockData from '../data/mockData.json'
-
 const initialState = {
   menu: {
     action: '',
@@ -8,8 +6,9 @@ const initialState = {
     activeContent: 'landing',
   },
   data: {
+    loaded: 'false',
     dataArray: [],
-    remoteData: mockData,
+    remoteData: [],
   },
 }
 

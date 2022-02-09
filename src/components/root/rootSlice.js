@@ -6,21 +6,28 @@ export const menuSlice = createSlice({
   initialState,
   reducers: {
     setAction: (state, action) => {
+      //alert(action.payload)
       state.menu.action = action.payload
-      alert(action.payload)
+    },
+    loadRemote: (state, action) => {
+      state.data.remoteData = action.payload
+      state.data.loaded = true
+      state.data.dataArray = state.data.remoteData
     },
     loadData: (state, action) => {
+      //alert(action.payload)
+      state.menu.action = 'load'
       state.data.dataArray = state.data.remoteData
-      alert(action.payload)
+      state.data.loaded = true
     },
     clearData: (state, action) => {
+      //alert(action.payload)
       state.data.dataArray = []
-      alert(action.payload)
     },
   },
 })
 
-export const { setAction, loadData, clearData } = menuSlice.actions
+export const { setAction, loadData, clearData, loadRemote } = menuSlice.actions
 
 // Can be inlined instead of exporting:
 // `useSelector((state: RootState) => state.counter.value)`

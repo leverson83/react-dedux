@@ -1,3 +1,4 @@
 .contentArea {
-  height: 100vh;
+  height: calc(100vh - var(--page-padding));
+  position: relative;
 }
