@@ -20,6 +20,7 @@ function App() {
 
     data.docs.forEach((word) => {
       items.push({
+        group_id: word.data().group_id,
         id: word.data().id,
         english: word.data().english,
         chinese: word.data().chinese,

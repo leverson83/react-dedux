@@ -6,8 +6,20 @@ export const menuSlice = createSlice({
   initialState,
   reducers: {
     setAction: (state, action) => {
-      //alert(action.payload)
       state.menu.action = action.payload
+      switch (action.payload) {
+        case 'flip':
+          state.data.showEnglish = !state.data.showEnglish
+        case 'order':
+          state.menu.action = action.payload
+        case 'random':
+          state.menu.action = action.payload
+        default:
+          state = state
+      }
+    },
+    setGroup: (state, action) => {
+      state.menu.group = parseInt(action.payload)
     },
     loadRemote: (state, action) => {
       state.data.remoteData = action.payload
@@ -15,19 +27,23 @@ export const menuSlice = createSlice({
       state.data.dataArray = state.data.remoteData
     },
     loadData: (state, action) => {
-      //alert(action.payload)
       state.menu.action = 'load'
       state.data.dataArray = state.data.remoteData
       state.data.loaded = true
     },
     clearData: (state, action) => {
-      //alert(action.payload)
       state.data.dataArray = []
     },
   },
 })
 
-export const { setAction, loadData, clearData, loadRemote } = menuSlice.actions
+export const {
+  setAction,
+  loadData,
+  clearData,
+  loadRemote,
+  setGroup,
+} = menuSlice.actions
 
 // Can be inlined instead of exporting:
 // `useSelector((state: RootState) => state.counter.value)`
