@@ -31,6 +31,6 @@ export const { setAction, loadData, clearData, loadRemote } = menuSlice.actions
 
 // Can be inlined instead of exporting:
 // `useSelector((state: RootState) => state.counter.value)`
-export const activeTab = (state) => state.root.menu.activeTab
+export const currentAction = (state) => state.root.menu.action
 
 export default menuSlice.reducer

@@ -6,9 +6,11 @@ import Col from 'react-bootstrap/Col'
 import { useSelector } from 'react-redux'
 import LoadBar from '../spinner/LoadBar'
 import { useEffect, useState } from 'react'
+import { currentAction } from '../root/rootSlice'
 
 const Content = () => {
   const words = useSelector((state) => state.root.data.dataArray)
+  const action = useSelector((state) => state.root.menu.action)
   const [loadBar, setLoadBar] = useState('show')
 
   useEffect(() => {
@@ -21,20 +23,48 @@ const Content = () => {
     }, 1000)
   }
 
+  const sort = (originalArray, random) => {
+    if (action == 'random') {
+      let array = [].concat(originalArray)
+      let currentIndex = array.length,
+        temporaryValue,
+        randomIndex
+
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex -= 1
+        temporaryValue = array[currentIndex]
+        array[currentIndex] = array[randomIndex]
+        array[randomIndex] = temporaryValue
+      }
+      return array
+    } else {
+      return originalArray
+    }
+  }
+
   return (
     <Container className={'contentArea'}>
       <LoadBar status={loadBar} message="Loading" />
       <Row>
-        {words.map((word) => (
-          <Col
-            key={word.id}
-            className="col-4 text-center p-1"
-            id={'word' + word.id}
-          >
-            <div className="border border-info">{word.english}</div>
-            <div className="border border-info mb-3">{word.chinese}</div>
-          </Col>
-        ))}
+        {sort(
+          words.map((word) => (
+            <Col
+              key={word.id}
+              className="col-12 col-sm-6 col-md-4 col-lg-3 text-center flashCard"
+              id={'word' + word.id}
+            >
+              <div className="card-inner">
+                <div className="side flashCardEnglish show">
+                  <h4>{word.english}</h4>
+                </div>
+                <div className="side flashCardChinese hide">
+                  <h4>{word.chinese}</h4>
+                </div>
+              </div>
+            </Col>
+          )),
+        )}
       </Row>
     </Container>
   )

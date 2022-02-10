@@ -5,13 +5,14 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { useDispatch } from 'react-redux'
-import { clearData, loadData } from '../root/rootSlice'
+import { setAction, clearData, loadData } from '../root/rootSlice'
 
 const Navigation = () => {
   const dispatch = useDispatch()
 
   const handleAction = (e) => {
-    e === 'load' ? dispatch(loadData(e)) : dispatch(clearData(e))
+    //e === 'load' ? dispatch(loadData(e)) : dispatch(clearData(e))
+    dispatch(setAction(e))
   }
 
   return (
@@ -32,7 +33,8 @@ const Navigation = () => {
         <Nav className="me-auto">
           <NavDropdown menuVariant="dark" title="File" id="basic-nav-dropdown">
             <NavDropdown.Item eventKey="new">New</NavDropdown.Item>
-            <NavDropdown.Item eventKey="load">Load</NavDropdown.Item>
+            <NavDropdown.Item eventKey="order">Order</NavDropdown.Item>
+            <NavDropdown.Item eventKey="random">Random</NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
