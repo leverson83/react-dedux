@@ -46,10 +46,8 @@ const Content = () => {
     }
 
     if (group === 0 && action == 'order') {
-      console.log('Group 0')
       return words
     } else if (group === 0 && action == 'random') {
-      console.log('Random')
       let sorted = [].concat(words)
       let currentIndex = sorted.length,
         temporaryValue,
@@ -64,7 +62,6 @@ const Content = () => {
       }
       return sorted
     } else if (action == 'random') {
-      console.log('Random')
       let sorted = [].concat(reduced)
       let currentIndex = sorted.length,
         temporaryValue,
@@ -79,7 +76,6 @@ const Content = () => {
       }
       return sorted
     } else {
-      console.log('Standard')
       return reduced
     }
   }
