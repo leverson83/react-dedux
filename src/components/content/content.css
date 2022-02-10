@@ -42,13 +42,13 @@
 
 .flashCard .side.show {
   display: block;
-  background-color: var(--grey);
+  background-color: var(--blue);
   border: 1px solid var(--black);
 }
 
 .flashCard .side.hide {
   transform: rotateY(180deg);
-  background-color: var(--teal);
+  background-color: var(--red);
   border: 1px solid var(--black);
 }
 
