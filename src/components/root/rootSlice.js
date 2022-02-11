@@ -26,10 +26,14 @@ export const menuSlice = createSlice({
       state.data.loaded = true
       state.data.dataArray = state.data.remoteData
     },
+    showPullDown: (state) => {
+      state.content.pullDown = true
+    },
+    hidePullDown: (state) => {
+      state.content.pullDown = false
+    },
     loadData: (state, action) => {
-      state.menu.action = 'load'
-      state.data.dataArray = state.data.remoteData
-      state.data.loaded = true
+      state.data.dataArray = action.payload
     },
     clearData: (state, action) => {
       state.data.dataArray = []
@@ -43,6 +47,8 @@ export const {
   clearData,
   loadRemote,
   setGroup,
+  showPullDown,
+  hidePullDown,
 } = menuSlice.actions
 
 // Can be inlined instead of exporting:

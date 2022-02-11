@@ -1,0 +1,42 @@
+.pullDown {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: var(--red);
+  transition: height 2s;
+  overflow: hidden;
+}
+
+.pullDown.show {
+  height: 100vh;
+}
+
+.pullDown .container {
+  padding-top: var(--page-padding);
+  position: relative;
+}
+
+.pullDownClose {
+  display: inline-block;
+  position: absolute;
+  top: var(--page-padding);
+  right: 0;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+input {
+  width: 100%;
+  height: 100%;
+  height: 40px;
+}
+
+.formRow {
+  margin-bottom: 0.5rem;
+}

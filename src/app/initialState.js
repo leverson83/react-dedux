@@ -5,12 +5,14 @@ const initialState = {
   },
   content: {
     activeContent: 'landing',
+    pullDown: false,
   },
   data: {
     loaded: 'false',
     showEnglish: true,
     dataArray: [],
     remoteData: [],
+    tempData: [{ group_id: '', id: 1, english: '', chinese: '' }],
   },
 }
 

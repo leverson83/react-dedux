@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { Dropdown } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
-import { setAction, setGroup } from '../root/rootSlice'
+import { setAction, setGroup, showPullDown } from '../root/rootSlice'
 import { useSelector } from 'react-redux'
 
 const Navigation = () => {
@@ -42,8 +42,22 @@ const Navigation = () => {
             <NavDropdown.Item eventKey="random">Random</NavDropdown.Item>
           </NavDropdown>
           <NavDropdown menuVariant="dark" title="Manage" id="nav-dropdown-2">
-            <NavDropdown.Item eventKey="add">New</NavDropdown.Item>
-            <NavDropdown.Item eventKey="view">View</NavDropdown.Item>
+            <NavDropdown.Item
+              eventKey="add"
+              onClick={() => {
+                dispatch(showPullDown())
+              }}
+            >
+              New
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              eventKey="view"
+              onClick={() => {
+                dispatch(showPullDown())
+              }}
+            >
+              View
+            </NavDropdown.Item>
           </NavDropdown>
         </Nav>
 

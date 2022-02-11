@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { loadRemote } from './components/root/rootSlice'
 import { useDispatch } from 'react-redux'
 import db from './app/base'
+import PullDown from './components/pullDown/PullDown'
 
 function App() {
   const dispatch = useDispatch()
@@ -37,6 +38,7 @@ function App() {
     <div className="App">
       <Navigation />
       <Content />
+      <PullDown />
     </div>
   )
 }
