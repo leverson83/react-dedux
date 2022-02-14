@@ -12,7 +12,14 @@ const initialState = {
     showEnglish: true,
     dataArray: [],
     remoteData: [],
-    tempData: [{ group_id: '', id: 1, english: '', chinese: '' }],
+    tempData: [
+      {
+        group_id: 0,
+        id: 0,
+        english: '',
+        chinese: '',
+      },
+    ],
   },
 }
 

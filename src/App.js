@@ -7,13 +7,13 @@ import Navigation from './components/navigation/Navigation'
 import Content from './components/content/Content'
 import { useEffect } from 'react'
 import { loadRemote } from './components/root/rootSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import db from './app/base'
 import PullDown from './components/pullDown/PullDown'
 
 function App() {
   const dispatch = useDispatch()
-
+  const newData = useSelector((state) => state.root.data.loaded)
   const fetchCollection = async (collection) => {
     const items = []
     const response = db.collection(`${collection}`)
@@ -32,7 +32,7 @@ function App() {
 
   useEffect(() => {
     fetchCollection('words')
-  }, [])
+  }, [newData])
 
   return (
     <div className="App">

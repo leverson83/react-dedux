@@ -4,52 +4,67 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Container } from 'react-bootstrap'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import { hidePullDown } from '../root/rootSlice'
+import { hidePullDown, loadNew } from '../root/rootSlice'
 import { Button } from 'react-bootstrap'
 import { useState } from 'react'
 import { doc, setDoc } from 'firebase/firestore'
 import db from '../../app/base'
+import Input from '../input/Input'
 
 const PullDown = () => {
   let active = useSelector((state) => state.root.content.pullDown)
   let status = active ? 'show' : 'hide'
   const dispatch = useDispatch()
+  let [group, setGroup] = useState(0)
+  let row = 0
+  let baseData = useSelector((state) => state.root.data.tempData)
 
-  const tempWords = useSelector((state) => state.root.data.tempData)
-  const [count, setCount] = useState(1)
-  const [inputs, setInputs] = useState(tempWords)
-  const [group, setGroup] = useState(1)
+  const [inputs, setInputs] = useState(baseData)
+  const [buttonDisabled, setButtonDisabled] = useState(true)
 
-  const addRow = (e) => {
-    let next_item = parseInt(e.target.id) + 1
-    setCount(count + 1)
-    setInputs([
-      ...inputs,
-      {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    let timeStamp = Math.floor(new Date().getTime() / 1000).toString()
+
+    for (let i = 0; i < inputs.length; i++) {
+      await setDoc(doc(db, 'words', `${timeStamp}${inputs[i].id}`), {
         group_id: group,
-        id: next_item,
+        id: i,
+        english: inputs[i].english,
+        chinese: inputs[i].chinese,
+      })
+    }
+    dispatch(hidePullDown())
+    dispatch(loadNew())
+    setInputs([
+      {
+        group_id: 0,
+        id: 0,
         english: '',
         chinese: '',
       },
     ])
   }
 
-  const removeRow = () => {
-    //To do
+  const handleUpdate = (id, type, data) => {
+    let temp = [...inputs]
+    let item = { ...temp[id] }
+    item.group_id = group
+    item.id = id
+    type === 'english' ? (item.english = data) : (item.chinese = data)
+    temp[id] = item
+    setInputs(temp)
   }
 
-  const sendData = async (e) => {
-    e.preventDefault()
-    let timeStamp = Math.floor(new Date().getTime() / 1000).toString()
+  const addRow = () => {
+    let temp = [...inputs]
+    temp.push({ group_id: '', id: inputs.length, english: '', chinese: '' })
+    setInputs(temp)
+  }
 
-    console.log(inputs)
-
-    /*  await setDoc(doc(db, 'words', timeStamp), {
-      group_id: group,
-      id: 1,
-      english: 'test',
-      chinese: 'test',
-    }) */
+  const captureGroup = (e) => {
+    setButtonDisabled(false)
+    setGroup(e)
   }
 
   return (
@@ -64,7 +79,7 @@ const PullDown = () => {
         <Row>
           <form
             onSubmit={(e) => {
-              sendData(e)
+              handleSubmit(e)
             }}
           >
             <Row className="formRow">
@@ -73,32 +88,32 @@ const PullDown = () => {
                   type="text"
                   placeholder="Grouping"
                   onInput={(e) => {
-                    setGroup(e.target.value)
+                    captureGroup(e.target.value)
                   }}
                 ></input>
               </Col>
             </Row>
-            {inputs.map((word) => (
-              <Row key={word.id} className="formRow">
-                <Col className="offset-2 col-3">
-                  <input
-                    name="english"
-                    type="text"
-                    placeholder="English"
-                  ></input>
+            {inputs.map((word, index) => (
+              <Row key={`word${index}`} className="formRow">
+                <Col className="offset-sm-2 col-sm-3">
+                  <Input
+                    row={word.id}
+                    type="english"
+                    updateRow={handleUpdate}
+                  />
                 </Col>
-                <Col className="col-3">
-                  <input
-                    name="chinese"
-                    type="text"
-                    placeholder="Chinese"
-                  ></input>
+                <Col className="col-sm-3">
+                  <Input
+                    row={word.id}
+                    type="chinese"
+                    updateRow={handleUpdate}
+                  />
                 </Col>
-                <Col className="col-2">
+                <Col className="col-sm-2">
                   <div className="d-grid gap-2">
                     <Button
                       variant="outline-dark"
-                      id={count}
+                      id={row}
                       onClick={(e) => {
                         addRow(e)
                       }}
@@ -109,10 +124,15 @@ const PullDown = () => {
                 </Col>
               </Row>
             ))}
+
             <Row>
               <Col className="offset-2 col-8">
                 <div className="d-grid gap-2">
-                  <Button variant="outline-dark" type="submit">
+                  <Button
+                    variant="outline-dark"
+                    type="submit"
+                    disabled={buttonDisabled}
+                  >
                     Submit
                   </Button>
                 </div>
