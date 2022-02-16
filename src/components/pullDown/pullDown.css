@@ -40,3 +40,8 @@ input {
 .formRow {
   margin-bottom: 0.5rem;
 }
+
+.wordCount {
+  line-height: 40px;
+  text-align: center;
+}

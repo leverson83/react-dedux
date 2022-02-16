@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux'
 const Navigation = () => {
   const dispatch = useDispatch()
   const group = useSelector((state) => state.root.menu.group)
+  const groups = useSelector((state) => state.root.data.dataArray)
 
   const handleAction = (e) => {
     dispatch(setAction(e))
@@ -19,6 +20,22 @@ const Navigation = () => {
 
   const handleGroup = (e) => {
     dispatch(setGroup(e))
+  }
+
+  const getGroups = () => {
+    const seen = new Set()
+
+    let items = groups.map((item) => ({
+      group: item.group_id,
+    }))
+
+    const filteredArr = items.filter((el) => {
+      const duplicate = seen.has(el.group)
+      seen.add(el.group)
+      return !duplicate
+    })
+
+    return filteredArr
   }
 
   return (
@@ -72,12 +89,11 @@ const Navigation = () => {
             }}
           >
             <Dropdown.Item eventKey={0}>All</Dropdown.Item>
-            <Dropdown.Item eventKey={1}>1</Dropdown.Item>
-            <Dropdown.Item eventKey={2}>2</Dropdown.Item>
-            <Dropdown.Item eventKey={3}>3</Dropdown.Item>
-            <Dropdown.Item eventKey={4}>4</Dropdown.Item>
-            <Dropdown.Item eventKey={5}>5</Dropdown.Item>
-            <Dropdown.Item eventKey={6}>6</Dropdown.Item>
+            {getGroups().map((group) => (
+              <Dropdown.Item key={group.group} eventKey={group.group}>
+                {group.group}
+              </Dropdown.Item>
+            ))}
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>

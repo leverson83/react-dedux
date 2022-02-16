@@ -18,17 +18,34 @@ const PullDown = () => {
   let [group, setGroup] = useState(0)
   let row = 0
   let baseData = useSelector((state) => state.root.data.tempData)
+  const groups = useSelector((state) => state.root.data.dataArray)
 
   const [inputs, setInputs] = useState(baseData)
   const [buttonDisabled, setButtonDisabled] = useState(true)
+
+  const getGroups = () => {
+    const seen = new Set()
+
+    let items = groups.map((item) => ({
+      group: item.group_id,
+    }))
+
+    const filteredArr = items.filter((el) => {
+      const duplicate = seen.has(el.group)
+      seen.add(el.group)
+      return !duplicate
+    })
+
+    return filteredArr
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     let timeStamp = Math.floor(new Date().getTime() / 1000).toString()
 
     for (let i = 0; i < inputs.length; i++) {
-      await setDoc(doc(db, 'words', `${timeStamp}${inputs[i].id}`), {
-        group_id: group,
+      await setDoc(doc(db, 'words', `${timeStamp}-${inputs[i].id}`), {
+        group_id: parseInt(group),
         id: i,
         english: inputs[i].english,
         chinese: inputs[i].chinese,
@@ -77,13 +94,21 @@ const PullDown = () => {
           &#10006;
         </span>
         <Row>
+          <Col className="text-center">
+            <span>Groups already: </span>
+            {getGroups().map((group, index) => (
+              <span key={index}>[{group.group}] </span>
+            ))}
+          </Col>
+        </Row>
+        <Row>
           <form
             onSubmit={(e) => {
               handleSubmit(e)
             }}
           >
             <Row className="formRow">
-              <Col className="offset-2 col-8">
+              <Col className="offset-sm-2 col-8">
                 <input
                   type="text"
                   placeholder="Grouping"
@@ -95,7 +120,10 @@ const PullDown = () => {
             </Row>
             {inputs.map((word, index) => (
               <Row key={`word${index}`} className="formRow">
-                <Col className="offset-sm-2 col-sm-3">
+                <Col className="offset-sm-1 col-sm-1 wordCount">
+                  {index + 1}
+                </Col>
+                <Col className="col-sm-3">
                   <Input
                     row={word.id}
                     type="english"
