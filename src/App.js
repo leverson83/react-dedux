@@ -10,6 +10,7 @@ import { loadRemote } from './components/root/rootSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import db from './app/base'
 import PullDown from './components/pullDown/PullDown'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
   const dispatch = useDispatch()
@@ -35,11 +36,19 @@ function App() {
   }, [newData])
 
   return (
-    <div className="App">
-      <Navigation />
-      <Content />
-      <PullDown />
-    </div>
+    <Router>
+      <div className="App">
+        <Navigation />
+        <Switch>
+          <Route exact path="/">
+            <Content />
+          </Route>
+          <Route path="/create">
+            <PullDown />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   )
 }
 
