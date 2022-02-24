@@ -1,5 +1,5 @@
 import React from 'react'
-import './pullDown.css'
+import './create.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container } from 'react-bootstrap'
 import Row from 'react-bootstrap/Row'
@@ -11,9 +11,7 @@ import { doc, setDoc } from 'firebase/firestore'
 import db from '../../app/base'
 import Input from '../input/Input'
 
-const PullDown = () => {
-  let active = useSelector((state) => state.root.content.pullDown)
-  let status = active ? 'show' : 'hide'
+const Create = () => {
   const dispatch = useDispatch()
   let [group, setGroup] = useState(0)
   let row = 0
@@ -85,14 +83,8 @@ const PullDown = () => {
   }
 
   return (
-    <div className={'pullDown ' + status}>
+    <div className={'pullDown show'}>
       <Container>
-        <span
-          className="pullDownClose"
-          onClick={() => dispatch(hidePullDown())}
-        >
-          &#10006;
-        </span>
         <Row>
           <Col className="text-center">
             <span>Groups already: </span>
@@ -173,4 +165,4 @@ const PullDown = () => {
   )
 }
 
-export default PullDown
+export default Create

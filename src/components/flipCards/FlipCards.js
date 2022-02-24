@@ -1,4 +1,4 @@
-import './content.css'
+import './flipCards.css'
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import Row from 'react-bootstrap/Row'
@@ -10,13 +10,12 @@ import Button from 'react-bootstrap/Button'
 import { setAction } from '../root/rootSlice'
 import { useDispatch } from 'react-redux'
 
-const Content = () => {
+const FlipCards = () => {
   const dispatch = useDispatch()
   const words = useSelector((state) => state.root.data.dataArray)
   const action = useSelector((state) => state.root.menu.action)
   const group = useSelector((state) => state.root.menu.group)
   const flip = useSelector((state) => state.root.data.showEnglish)
-  const [loadBar, setLoadBar] = useState('show')
 
   useEffect(() => {
     showLoader()
@@ -27,9 +26,7 @@ const Content = () => {
   }
 
   const showLoader = () => {
-    setTimeout(() => {
-      setLoadBar('hide')
-    }, 1000)
+    console.log('Loading...')
   }
 
   const sorted = () => {
@@ -82,7 +79,6 @@ const Content = () => {
 
   return (
     <Container className={'contentArea'}>
-      <LoadBar status={loadBar} message="Loading" />
       <Row>
         <Col className="mb-5 text-center">
           <Button variant="primary" onClick={handleAction}>
@@ -116,4 +112,4 @@ const Content = () => {
   )
 }
 
-export default Content
+export default FlipCards

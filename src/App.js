@@ -4,17 +4,18 @@ import './css/app.css'
 
 import React from 'react'
 import Navigation from './components/navigation/Navigation'
-import Content from './components/content/Content'
+import FlipCards from './components/flipCards/FlipCards'
 import { useEffect } from 'react'
 import { loadRemote } from './components/root/rootSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import db from './app/base'
-import PullDown from './components/pullDown/PullDown'
+import Create from './components/create/Create'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
   const dispatch = useDispatch()
   const newData = useSelector((state) => state.root.data.loaded)
+
   const fetchCollection = async (collection) => {
     const items = []
     const response = db.collection(`${collection}`)
@@ -41,10 +42,10 @@ function App() {
         <Navigation />
         <Switch>
           <Route exact path="/">
-            <Content />
+            <FlipCards />
           </Route>
           <Route path="/create">
-            <PullDown />
+            <Create />
           </Route>
         </Switch>
       </div>

@@ -8,6 +8,8 @@ import { Dropdown } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { setAction, setGroup, showPullDown } from '../root/rootSlice'
 import { useSelector } from 'react-redux'
+import DropdownItem from 'react-bootstrap/esm/DropdownItem'
+import { Link } from 'react-router-dom'
 
 const Navigation = () => {
   const dispatch = useDispatch()
@@ -48,32 +50,25 @@ const Navigation = () => {
         handleAction(e)
       }}
     >
-      <Navbar.Brand href="#home">
-        <img src={logo} alt="Application logo" />
+      <Navbar.Brand>
+        <Link to="/">
+          <img src={logo} alt="Application logo" />
+        </Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
           <NavDropdown menuVariant="dark" title="Game" id="nav-dropdown-1">
-            <NavDropdown.Item eventKey="order">Default</NavDropdown.Item>
-            <NavDropdown.Item eventKey="random">Random</NavDropdown.Item>
+            <NavDropdown.Item eventKey="order" as={Link} to="/">
+              Default
+            </NavDropdown.Item>
+            <NavDropdown.Item eventKey="random" as={Link} to="/">
+              Random
+            </NavDropdown.Item>
           </NavDropdown>
           <NavDropdown menuVariant="dark" title="Manage" id="nav-dropdown-2">
-            <NavDropdown.Item
-              eventKey="add"
-              onClick={() => {
-                dispatch(showPullDown())
-              }}
-            >
+            <NavDropdown.Item eventKey="add" as={Link} to="/create">
               New
-            </NavDropdown.Item>
-            <NavDropdown.Item
-              eventKey="view"
-              onClick={() => {
-                dispatch(showPullDown())
-              }}
-            >
-              View
             </NavDropdown.Item>
           </NavDropdown>
         </Nav>
