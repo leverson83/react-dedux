@@ -6,10 +6,10 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { Dropdown } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
-import { setAction, setGroup } from '../root/rootSlice'
+import { setAction, setGroup, setSide } from '../root/rootSlice'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Settings from '../settings/Settings'
 
 const Navigation = () => {
@@ -17,8 +17,12 @@ const Navigation = () => {
   const group = useSelector((state) => state.root.menu.group)
   const groups = useSelector((state) => state.root.data.dataArray)
   const [modal, setModal] = useState(false)
+  const history = useHistory()
 
-  const closeModal = () => setModal(false)
+  const closeModal = () => {
+    setModal(false)
+    history.push('/')
+  }
   const showModal = () => setModal(true)
 
   const handleAction = (e) => {
@@ -27,6 +31,10 @@ const Navigation = () => {
 
   const handleGroup = (e) => {
     dispatch(setGroup(e))
+  }
+
+  const handleSide = (e) => {
+    dispatch(setSide(e))
   }
 
   const getGroups = () => {
@@ -62,23 +70,11 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <NavDropdown menuVariant="dark" title="Game" id="nav-dropdown-1">
-              <NavDropdown.Item eventKey="order" as={Link} to="/">
-                Default
-              </NavDropdown.Item>
-              <NavDropdown.Item eventKey="random" as={Link} to="/">
-                Random
-              </NavDropdown.Item>
-            </NavDropdown>
             <NavDropdown menuVariant="dark" title="Manage" id="nav-dropdown-2">
               <NavDropdown.Item eventKey="add" as={Link} to="/create">
                 New
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link onClick={showModal}>Settings</Nav.Link>
-          </Nav>
-
-          <Nav className="ms-auto">
             <NavDropdown
               id="nav-dropdown-3"
               variant="secondary"
@@ -96,9 +92,20 @@ const Navigation = () => {
               ))}
             </NavDropdown>
           </Nav>
+
+          <Nav className="ms-auto">
+            <Nav.Link onClick={showModal}>&#9881;</Nav.Link>
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <Settings show={modal} onClose={closeModal} onShow={showModal} />
+      <Settings
+        show={modal}
+        onClose={closeModal}
+        onShow={showModal}
+        handleAction={handleAction}
+        setSide={handleSide}
+        save={closeModal}
+      />
     </div>
   )
 }

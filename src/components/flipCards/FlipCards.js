@@ -4,9 +4,7 @@ import { Container } from 'react-bootstrap'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { useSelector } from 'react-redux'
-import LoadBar from '../spinner/LoadBar'
-import { useEffect, useState } from 'react'
-import Button from 'react-bootstrap/Button'
+import { useEffect } from 'react'
 import { setAction } from '../root/rootSlice'
 import { useDispatch } from 'react-redux'
 
@@ -15,8 +13,8 @@ const FlipCards = () => {
   const words = useSelector((state) => state.root.data.dataArray)
   const action = useSelector((state) => state.root.menu.action)
   const group = useSelector((state) => state.root.menu.group)
-  const flip = useSelector((state) => state.root.data.showEnglish)
-
+  const face = useSelector((state) => state.root.data.faceUp)
+  console.log(face)
   useEffect(() => {
     showLoader()
   }, [words])
@@ -80,13 +78,6 @@ const FlipCards = () => {
   return (
     <Container className={'contentArea'}>
       <Row>
-        <Col className="mb-5 text-center">
-          <Button variant="primary" onClick={handleAction}>
-            Flip
-          </Button>
-        </Col>
-      </Row>
-      <Row>
         {sorted().map((word) => (
           <Col
             key={`${word.group_id}` + `${word.id}`}
@@ -95,12 +86,16 @@ const FlipCards = () => {
           >
             <div className="card-inner">
               <div
-                className={`side flashCardEnglish ${flip ? 'show' : 'hide'}`}
+                className={`side flashCardEnglish ${
+                  face == 'english' ? 'show' : 'hide'
+                }`}
               >
                 <h4>{word.english}</h4>
               </div>
               <div
-                className={`side flashCardChinese ${flip ? 'hide' : 'show'}`}
+                className={`side flashCardChinese ${
+                  face == 'chinese' ? 'show' : 'hide'
+                }`}
               >
                 <h4>{word.chinese}</h4>
               </div>

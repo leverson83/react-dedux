@@ -21,6 +21,9 @@ export const menuSlice = createSlice({
     setGroup: (state, action) => {
       state.menu.group = parseInt(action.payload)
     },
+    setSide: (state, action) => {
+      state.data.faceUp = action.payload
+    },
     loadRemote: (state, action) => {
       state.data.remoteData = action.payload
       state.data.loaded = true
@@ -46,6 +49,7 @@ export const menuSlice = createSlice({
 
 export const {
   setAction,
+  setSide,
   loadData,
   clearData,
   loadRemote,

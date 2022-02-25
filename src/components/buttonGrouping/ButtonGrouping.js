@@ -1,18 +1,17 @@
 import React from 'react'
 import './buttonGrouping.css'
-import { useState } from 'react'
 
 const ButtonGrouping = (props) => {
-  const [buttonActive, setButtonActive] = useState(props.buttons[0])
   return (
-    <div
-      className={`bttn-grid-${props.variant}`}
-      onClick={(e) => {
-        setButtonActive(e.target.textContent.toLowerCase())
-      }}
-    >
-      {props.buttons.map((button) => (
-        <div className={`bttn ${buttonActive === button ? 'active' : ''}`}>
+    <div className={`bttn-grid-${props.variant}`}>
+      {props.buttons.map((button, index) => (
+        <div
+          key={index}
+          className={`bttn ${props.active === button ? 'active' : ''}`}
+          onClick={(e) => {
+            props.update(e.target.textContent.toLowerCase())
+          }}
+        >
           {button}
         </div>
       ))}

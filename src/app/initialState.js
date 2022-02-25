@@ -10,6 +10,7 @@ const initialState = {
   data: {
     loaded: 'false',
     showEnglish: true,
+    faceUp: 'english',
     dataArray: [],
     remoteData: [],
     tempData: [
