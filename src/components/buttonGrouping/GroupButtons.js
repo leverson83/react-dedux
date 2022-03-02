@@ -3,13 +3,17 @@ import './buttonGrouping.css'
 
 const ButtonGrouping = (props) => {
   let active = [...props.active]
+  let allSelected = ''
+  if (active.length === 0) {
+    allSelected = 'active'
+  }
 
   return (
     <div className={`bttn-grid-${props.variant}`}>
       {props.buttons.map((button, index) => (
         <div
           key={index}
-          className={`bttn ${
+          className={`bttn ${allSelected} ${
             active.includes(button.toString()) ? 'active' : ''
           }`}
           onClick={(e) => {

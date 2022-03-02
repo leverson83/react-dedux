@@ -10,8 +10,11 @@ import { useState } from 'react'
 import { doc, setDoc } from 'firebase/firestore'
 import db from '../../app/base'
 import Input from '../input/Input'
+import LoadBar from '../spinner/LoadBar'
+import { useHistory } from 'react-router-dom'
 
 const Create = () => {
+  const history = useHistory()
   const dispatch = useDispatch()
   let [group, setGroup] = useState(0)
   let row = 0
@@ -20,6 +23,7 @@ const Create = () => {
 
   const [inputs, setInputs] = useState(baseData)
   const [buttonDisabled, setButtonDisabled] = useState(true)
+  const [loading, setLoading] = useState('hide')
 
   const getGroups = () => {
     const seen = new Set()
@@ -39,6 +43,9 @@ const Create = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    setLoading('visible')
+
     let timeStamp = Math.floor(new Date().getTime() / 1000).toString()
 
     for (let i = 0; i < inputs.length; i++) {
@@ -59,6 +66,8 @@ const Create = () => {
         chinese: '',
       },
     ])
+    setLoading('hide')
+    history.push('/')
   }
 
   const handleUpdate = (id, type, data) => {
@@ -84,6 +93,7 @@ const Create = () => {
 
   return (
     <div className={'pullDown show'}>
+      <LoadBar status={loading} />
       <Container>
         <Row>
           <Col className="text-center">
