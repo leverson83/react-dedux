@@ -1,22 +1,50 @@
 import React from 'react'
 import { Button, Modal, Row } from 'react-bootstrap'
 import ButtonGrouping from '../buttonGrouping/ButtonGrouping'
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import GroupButtons from '../buttonGrouping/GroupButtons'
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setGroup } from '../root/rootSlice'
 
 const Settings = (props) => {
+  const dispatch = useDispatch()
   const [sort, setSort] = useState(
     useSelector((state) => state.root.menu.action),
   )
+
+  const groupData = useSelector((state) => state.root.data.groups)
+  const [groups, setGroups] = useState(groupData)
+
+  const [chosenGroups, setChosenGroups] = useState([])
 
   const [side, setSide] = useState(
     useSelector((state) => state.root.data.faceUp),
   )
 
+  const addGroup = (group_id) => {
+    let id = group_id.toString()
+    let arr = [...chosenGroups]
+
+    if (arr.includes(id)) {
+      let index = arr.indexOf(id)
+      if (index > -1) {
+        arr.splice(index, 1)
+      }
+    } else {
+      arr.push(group_id)
+    }
+    setChosenGroups(arr)
+  }
+
+  useEffect(() => {
+    setGroups(groupData)
+  }, [groupData])
+
   const save = () => {
     props.handleAction(sort)
     props.setSide(side)
     props.onClose()
+    dispatch(setGroup(chosenGroups))
   }
 
   return (
@@ -45,6 +73,17 @@ const Settings = (props) => {
             buttons={['english', 'chinese']}
             update={setSide}
             active={side}
+          />
+        </Row>
+        <Row className="formRow">
+          <h4>Groups</h4>
+        </Row>
+        <Row>
+          <GroupButtons
+            variant="4"
+            buttons={groups}
+            update={addGroup}
+            active={chosenGroups}
           />
         </Row>
       </Modal.Body>

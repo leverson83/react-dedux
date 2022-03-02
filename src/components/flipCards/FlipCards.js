@@ -14,64 +14,51 @@ const FlipCards = () => {
   const action = useSelector((state) => state.root.menu.action)
   const group = useSelector((state) => state.root.menu.group)
   const face = useSelector((state) => state.root.data.faceUp)
-  console.log(face)
+
   useEffect(() => {
     showLoader()
   }, [words])
-
-  const handleAction = (e) => {
-    dispatch(setAction('flip'))
-  }
 
   const showLoader = () => {
     console.log('Loading...')
   }
 
   const sorted = () => {
-    let reduced = ''
+    let allWords = getActiveGroups()
+
+    if (action == 'order') {
+      return allWords
+    } else {
+      let sorted = [].concat(allWords)
+      let currentIndex = sorted.length,
+        temporaryValue,
+        randomIndex
+
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex -= 1
+        temporaryValue = sorted[currentIndex]
+        sorted[currentIndex] = sorted[randomIndex]
+        sorted[randomIndex] = temporaryValue
+      }
+      return sorted
+    }
+  }
+
+  const getActiveGroups = () => {
     if (group != 0) {
-      reduced = words.reduce((words, word) => {
-        if (word.group_id == group) {
-          words.push(word)
+      let reduced = words.reduce((words, word) => {
+        for (let i = 0; i < group.length; i++) {
+          if (word.group_id == group[i]) {
+            words.push(word)
+          }
         }
+
         return words
       }, [])
-    } else {
-      reduced = words
-    }
-
-    if (group === 0 && action == 'order') {
-      return words
-    } else if (group === 0 && action == 'random') {
-      let sorted = [].concat(words)
-      let currentIndex = sorted.length,
-        temporaryValue,
-        randomIndex
-
-      while (0 !== currentIndex) {
-        randomIndex = Math.floor(Math.random() * currentIndex)
-        currentIndex -= 1
-        temporaryValue = sorted[currentIndex]
-        sorted[currentIndex] = sorted[randomIndex]
-        sorted[randomIndex] = temporaryValue
-      }
-      return sorted
-    } else if (action == 'random') {
-      let sorted = [].concat(reduced)
-      let currentIndex = sorted.length,
-        temporaryValue,
-        randomIndex
-
-      while (0 !== currentIndex) {
-        randomIndex = Math.floor(Math.random() * currentIndex)
-        currentIndex -= 1
-        temporaryValue = sorted[currentIndex]
-        sorted[currentIndex] = sorted[randomIndex]
-        sorted[randomIndex] = temporaryValue
-      }
-      return sorted
-    } else {
       return reduced
+    } else {
+      return words
     }
   }
 

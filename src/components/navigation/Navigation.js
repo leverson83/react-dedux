@@ -75,22 +75,6 @@ const Navigation = () => {
                 New
               </NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown
-              id="nav-dropdown-3"
-              variant="secondary"
-              menuVariant="dark"
-              title={group ? group : 'All'}
-              onSelect={(e) => {
-                handleGroup(e)
-              }}
-            >
-              <Dropdown.Item eventKey={0}>All</Dropdown.Item>
-              {getGroups().map((group) => (
-                <Dropdown.Item key={group.group} eventKey={group.group}>
-                  {group.group}
-                </Dropdown.Item>
-              ))}
-            </NavDropdown>
           </Nav>
 
           <Nav className="ms-auto">
@@ -105,6 +89,7 @@ const Navigation = () => {
         handleAction={handleAction}
         setSide={handleSide}
         save={closeModal}
+        getGroups={getGroups}
       />
     </div>
   )

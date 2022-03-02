@@ -8,6 +8,7 @@ const initialState = {
     pullDown: false,
   },
   data: {
+    groups: [0],
     loaded: 'false',
     showEnglish: true,
     faceUp: 'english',

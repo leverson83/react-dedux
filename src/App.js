@@ -6,7 +6,7 @@ import React from 'react'
 import Navigation from './components/navigation/Navigation'
 import FlipCards from './components/flipCards/FlipCards'
 import { useEffect } from 'react'
-import { loadRemote } from './components/root/rootSlice'
+import { loadRemote, loadGroups } from './components/root/rootSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import db from './app/base'
 import Create from './components/create/Create'
@@ -18,6 +18,7 @@ function App() {
 
   const fetchCollection = async (collection) => {
     const items = []
+    const groups = []
     const response = db.collection(`${collection}`)
     const data = await response.get()
 
@@ -28,6 +29,7 @@ function App() {
         english: word.data().english,
         chinese: word.data().chinese,
       })
+      groups.push(word.data().group_id)
     })
     dispatch(loadRemote(items))
   }

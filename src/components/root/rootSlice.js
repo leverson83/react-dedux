@@ -1,6 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 import initialState from '../../app/initialState'
 
+const filterGroups = (arr) => {
+  let numbers = []
+  arr.map((item) => numbers.push(parseInt(item.group_id)))
+  let group_ids = [...new Set(numbers)]
+
+  return group_ids
+}
+
 export const menuSlice = createSlice({
   name: 'menu',
   initialState,
@@ -19,15 +27,16 @@ export const menuSlice = createSlice({
       }
     },
     setGroup: (state, action) => {
-      state.menu.group = parseInt(action.payload)
+      state.menu.group = action.payload
     },
     setSide: (state, action) => {
       state.data.faceUp = action.payload
     },
     loadRemote: (state, action) => {
       state.data.remoteData = action.payload
-      state.data.loaded = true
       state.data.dataArray = state.data.remoteData
+      state.data.groups = filterGroups(action.payload)
+      state.data.loaded = true
     },
     loadNew: (state) => {
       state.data.loaded = false

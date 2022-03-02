@@ -1,13 +1,17 @@
 import React from 'react'
 import './buttonGrouping.css'
 
-const GroupButtons = (props) => {
+const ButtonGrouping = (props) => {
+  let active = [...props.active]
+
   return (
     <div className={`bttn-grid-${props.variant}`}>
       {props.buttons.map((button, index) => (
         <div
           key={index}
-          className={`bttn ${props.active === button ? 'active' : ''}`}
+          className={`bttn ${
+            active.includes(button.toString()) ? 'active' : ''
+          }`}
           onClick={(e) => {
             props.update(e.target.textContent.toLowerCase())
           }}
@@ -19,4 +23,4 @@ const GroupButtons = (props) => {
   )
 }
 
-export default GroupButtons
+export default ButtonGrouping
