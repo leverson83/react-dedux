@@ -21,7 +21,6 @@ const Navigation = () => {
 
   const closeModal = () => {
     setModal(false)
-    history.push('/')
   }
   const showModal = () => setModal(true)
 
@@ -75,6 +74,9 @@ const Navigation = () => {
                 New
               </NavDropdown.Item>
             </NavDropdown>
+            <Nav.Link as={Link} to="/match">
+              Match
+            </Nav.Link>
           </Nav>
 
           <Nav className="ms-auto">

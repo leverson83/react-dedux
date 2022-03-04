@@ -3,16 +3,16 @@ const initialState = {
     action: 'order',
     group: 0,
   },
-  content: {
-    activeContent: 'landing',
-    pullDown: false,
-  },
   data: {
     groups: [0],
     loaded: 'false',
-    showEnglish: true,
     faceUp: 'english',
+    selection: {
+      chinese: '',
+      english: '',
+    },
     dataArray: [],
+    randomised: [],
     remoteData: [],
     tempData: [
       {

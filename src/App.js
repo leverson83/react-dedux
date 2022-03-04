@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import db from './app/base'
 import Create from './components/create/Create'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import MatchController from './components/match/MatchController'
 
 function App() {
   const dispatch = useDispatch()
@@ -48,6 +49,9 @@ function App() {
           </Route>
           <Route path="/create">
             <Create />
+          </Route>
+          <Route path="/match">
+            <MatchController />
           </Route>
         </Switch>
       </div>

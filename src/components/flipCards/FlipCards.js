@@ -5,11 +5,9 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { setAction } from '../root/rootSlice'
 import { useDispatch } from 'react-redux'
 
 const FlipCards = () => {
-  const dispatch = useDispatch()
   const words = useSelector((state) => state.root.data.dataArray)
   const action = useSelector((state) => state.root.menu.action)
   const group = useSelector((state) => state.root.menu.group)

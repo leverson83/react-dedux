@@ -1,0 +1,49 @@
+.matchArea {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.score {
+  grid-column: span 2;
+  padding: 15px;
+  background-color: var(--grey);
+  color: var(--black);
+  margin-bottom: 15px;
+}
+
+.matchLeft,
+.matchRight {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 15px;
+  column-gap: 15px;
+  padding: 15px;
+  border: 1px solid var(--grey);
+}
+
+.matchLeft {
+  padding-right: 10px;
+}
+
+.matchRight {
+  padding-left: 10px;
+}
+
+.matchCard {
+  border: 1px solid white;
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.matchCard.disabled {
+  background-color: var(--teal);
+  border: 1px solid var(--teal);
+  cursor: not-allowed;
+}
+
+.matchCard.active {
+  background-color: var(--blue);
+  border: 1px solid var(--blue);
+  color: var(--white);
+}

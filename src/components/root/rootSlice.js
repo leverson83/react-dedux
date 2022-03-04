@@ -18,10 +18,13 @@ export const menuSlice = createSlice({
       switch (action.payload) {
         case 'flip':
           state.data.showEnglish = !state.data.showEnglish
+          break
         case 'order':
           state.menu.action = action.payload
+          break
         case 'random':
           state.menu.action = action.payload
+          break
         default:
           state = state
       }
@@ -53,6 +56,12 @@ export const menuSlice = createSlice({
     clearData: (state, action) => {
       state.data.dataArray = []
     },
+    updateChinese: (state, action) => {
+      state.data.selection.chinese = action.payload
+    },
+    updateEnglish: (state, action) => {
+      state.data.selection.english = action.payload
+    },
   },
 })
 
@@ -66,6 +75,8 @@ export const {
   showPullDown,
   hidePullDown,
   loadNew,
+  updateEnglish,
+  updateChinese,
 } = menuSlice.actions
 
 // Can be inlined instead of exporting:
