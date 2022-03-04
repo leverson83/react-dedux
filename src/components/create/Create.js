@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Container } from 'react-bootstrap'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import { hidePullDown, loadNew } from '../root/rootSlice'
+import { loadNew } from '../root/rootSlice'
 import { Button } from 'react-bootstrap'
 import { useState } from 'react'
 import { doc, setDoc } from 'firebase/firestore'
@@ -56,7 +56,6 @@ const Create = () => {
         chinese: inputs[i].chinese,
       })
     }
-    dispatch(hidePullDown())
     dispatch(loadNew())
     setInputs([
       {
