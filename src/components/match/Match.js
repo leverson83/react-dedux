@@ -12,6 +12,7 @@ const Match = (props) => {
   const [disabled, setDisabled] = useState([])
   const [errors, setErrors] = useState(0)
   const [correct, setCorrect] = useState(0)
+  const [status, setStatus] = useState('idle')
 
   useEffect(() => {
     let arr = [...disabled]
@@ -45,13 +46,15 @@ const Match = (props) => {
   return (
     <Container>
       <Row>
-        <Col>
+        <Col className="col-sm-12">
           <div className="matchArea">
             <Score
               errorCount={errors}
               correctCount={correct}
               wordsTotal={props.words.length}
               reset={reset}
+              setStatus={setStatus}
+              status={status}
             />
             <div className="matchLeft">
               {props.words.map((word) => (
@@ -60,6 +63,7 @@ const Match = (props) => {
                   word={word}
                   type="chinese"
                   disabled={disabled}
+                  status={status}
                 />
               ))}
             </div>
@@ -70,6 +74,7 @@ const Match = (props) => {
                   word={word}
                   type="english"
                   disabled={disabled}
+                  status={status}
                 />
               ))}
             </div>

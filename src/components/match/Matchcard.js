@@ -14,15 +14,17 @@ const Matchcard = (props) => {
     active = selection.english
   }
   let disabled = props.disabled.includes(activeTest)
-  const onClick = (e) => {
+  const onClick = () => {
     let type = props.type
     let id = `${props.word.group_id}.${props.word.id}`
 
-    if (!disabled) {
-      if (type === 'chinese') {
-        dispatch(updateChinese(id))
-      } else {
-        dispatch(updateEnglish(id))
+    if (props.status != 'idle') {
+      if (!disabled) {
+        if (type === 'chinese') {
+          dispatch(updateChinese(id))
+        } else {
+          dispatch(updateEnglish(id))
+        }
       }
     }
   }
@@ -36,7 +38,7 @@ const Matchcard = (props) => {
       }}
       className={`matchCard ${active === activeTest ? 'active' : ''} ${
         disabled ? 'disabled' : ''
-      }`}
+      } ${props.status}`}
     >
       {props.type === 'chinese' ? props.word.chinese : props.word.english}
     </div>

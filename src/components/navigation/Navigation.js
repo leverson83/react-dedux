@@ -3,21 +3,17 @@ import './navigation.css'
 import logo from './menuIcon.png'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown'
-import { Dropdown } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
-import { setAction, setGroup, setSide } from '../root/rootSlice'
+import { setAction, setSide } from '../root/rootSlice'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Settings from '../settings/Settings'
 
 const Navigation = () => {
   const dispatch = useDispatch()
-  const group = useSelector((state) => state.root.menu.group)
   const groups = useSelector((state) => state.root.data.dataArray)
   const [modal, setModal] = useState(false)
-  const history = useHistory()
 
   const closeModal = () => {
     setModal(false)
@@ -26,10 +22,6 @@ const Navigation = () => {
 
   const handleAction = (e) => {
     dispatch(setAction(e))
-  }
-
-  const handleGroup = (e) => {
-    dispatch(setGroup(e))
   }
 
   const handleSide = (e) => {
@@ -59,9 +51,7 @@ const Navigation = () => {
         variant="dark"
         expand="sm"
         fixed="top"
-        onSelect={(e) => {
-          handleAction(e)
-        }}
+        collapseOnSelect={true}
       >
         <Navbar.Brand as={Link} to="/">
           <img src={logo} alt="Application logo" />
@@ -69,18 +59,23 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <NavDropdown menuVariant="dark" title="Manage" id="nav-dropdown-2">
-              <NavDropdown.Item eventKey="add" as={Link} to="/create">
-                New
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link as={Link} to="/match">
+            <Nav.Link eventKey="1" as={Link} to="/" href="/">
+              Flip
+            </Nav.Link>
+
+            <Nav.Link eventKey="2" as={Link} to="/match">
               Match
+            </Nav.Link>
+
+            <Nav.Link eventKey="3" as={Link} to="/create" href="/create">
+              New
             </Nav.Link>
           </Nav>
 
           <Nav className="ms-auto">
-            <Nav.Link onClick={showModal}>&#9881;</Nav.Link>
+            <Nav.Link eventKey="4" onClick={showModal}>
+              Options
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

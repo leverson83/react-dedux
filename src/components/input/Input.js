@@ -10,7 +10,7 @@ const Input = (props) => {
   return (
     <input
       type="text"
-      placeholder={props.type}
+      placeholder={`${props.type} (${props.row + 1})`}
       onChange={(e) => {
         handleInput(e)
       }}

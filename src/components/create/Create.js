@@ -109,7 +109,7 @@ const Create = () => {
             }}
           >
             <Row className="formRow">
-              <Col className="offset-sm-2 col-8">
+              <Col>
                 <input
                   type="text"
                   placeholder="Grouping"
@@ -121,27 +121,24 @@ const Create = () => {
             </Row>
             {inputs.map((word, index) => (
               <Row key={`word${index}`} className="formRow">
-                <Col className="offset-sm-1 col-sm-1 wordCount">
-                  {index + 1}
-                </Col>
-                <Col className="col-sm-3">
+                <Col xs={5}>
                   <Input
                     row={word.id}
                     type="english"
                     updateRow={handleUpdate}
                   />
                 </Col>
-                <Col className="col-sm-3">
+                <Col xs={5}>
                   <Input
                     row={word.id}
                     type="chinese"
                     updateRow={handleUpdate}
                   />
                 </Col>
-                <Col className="col-sm-2">
+                <Col xs={2}>
                   <div className="d-grid gap-2">
                     <Button
-                      variant="outline-dark"
+                      variant="outline-light"
                       id={row}
                       onClick={(e) => {
                         addRow(e)
@@ -155,10 +152,10 @@ const Create = () => {
             ))}
 
             <Row>
-              <Col className="offset-2 col-8">
+              <Col className="col-12">
                 <div className="d-grid gap-2">
                   <Button
-                    variant="outline-dark"
+                    variant="outline-light"
                     type="submit"
                     disabled={buttonDisabled}
                   >
